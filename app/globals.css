@@ -1047,3 +1047,90 @@ a {
     will-change: auto;
   }
 }
+
+
+/* =========================================
+   HERO — MOBILE TYPOGRAPHY IMPROVEMENTS
+========================================= */
+
+@media (max-width: 767px) {
+  .hero-container {
+    padding: 24px 20px 32px;
+  }
+
+  .hero-title {
+    font-size: clamp(52px, 13vw, 88px);
+    line-height: 0.91;
+    letter-spacing: -0.005em;
+  }
+
+  .hero-eyebrow {
+    gap: 12px;
+    margin-bottom: 22px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+  }
+
+  .hero-description {
+    max-width: 390px;
+    margin-top: 28px;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .hero-scroll {
+    margin-top: 30px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+  }
+}
+
+/* =========================================
+   HERO — SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+  .hero-container {
+    padding-inline: 16px;
+  }
+
+  .hero-title {
+    font-size: clamp(48px, 12.5vw, 58px);
+  }
+
+  .hero-description {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    margin-bottom: 18px;
+  }
+
+  .hero-scroll {
+    margin-top: 24px;
+  }
+}
+
+/* =========================================
+   HERO — SHORT MOBILE SCREENS
+========================================= */
+
+@media (max-width: 767px) and (max-height: 700px) {
+  .hero-title {
+    font-size: clamp(44px, 10.5vw, 62px);
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 14px;
+  }
+
+  .hero-description {
+    margin-top: 18px;
+  }
+
+  .hero-scroll {
+    margin-top: 20px;
+  }
+}
