@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 const titleLines = [
@@ -10,40 +10,50 @@ const titleLines = [
   { text: "KILIYORUZ.", gold: false },
 ];
 
+const directions = [
+  { x: -90, y: -55, rotation: -18 },
+  { x: 65, y: -95, rotation: 14 },
+  { x: -55, y: 90, rotation: -12 },
+  { x: 85, y: 55, rotation: 16 },
+  { x: 0, y: -115, rotation: -9 },
+  { x: -100, y: 20, rotation: 12 },
+];
+
 export default function AnimatedHeroTitle() {
   const titleRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const title = titleRef.current;
     if (!title) return;
 
-    const letters = title.querySelectorAll(
-      "[data-hero-letter]"
+    const letters = gsap.utils.toArray(
+      title.querySelectorAll("[data-hero-letter]")
     );
 
+    if (!letters.length) return;
+
     const ctx = gsap.context(() => {
-      if (
-        window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
-        ).matches
-      ) {
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (reduceMotion) {
         gsap.set(letters, {
-          clearProps: "all",
+          opacity: 1,
+          visibility: "visible",
+          x: 0,
+          y: 0,
+          rotation: 0,
+          filter: "none",
         });
+
         return;
       }
 
-      const directions = [
-        { x: -90, y: -55, rotation: -18 },
-        { x: 65, y: -95, rotation: 14 },
-        { x: -55, y: 90, rotation: -12 },
-        { x: 85, y: 55, rotation: 16 },
-        { x: 0, y: -115, rotation: -9 },
-        { x: -100, y: 20, rotation: 12 },
-      ];
-
+      // Harfler ilk render sırasında JSX tarafından
+      // gizlenir. GSAP burada başlangıç konumlarını ayarlar.
       gsap.set(letters, {
-        opacity: 0,
+        autoAlpha: 0,
         x: (index) =>
           directions[index % directions.length].x,
         y: (index) =>
@@ -55,8 +65,9 @@ export default function AnimatedHeroTitle() {
         force3D: true,
       });
 
+      // Harfler farklı yönlerden gelip birleşir.
       gsap.to(letters, {
-        opacity: 1,
+        autoAlpha: 1,
         x: 0,
         y: 0,
         rotation: 0,
@@ -68,10 +79,15 @@ export default function AnimatedHeroTitle() {
           from: "random",
         },
         delay: 0.2,
+        overwrite: "auto",
         onComplete: () => {
+          // Animasyon sonunda harfler normal,
+          // görünür durumunda kalır.
           gsap.set(letters, {
             clearProps:
-              "transform,filter,opacity,willChange",
+              "transform,filter,willChange",
+            opacity: 1,
+            visibility: "visible",
           });
         },
       });
@@ -111,7 +127,15 @@ export default function AnimatedHeroTitle() {
                     style={{
                       display: "inline-block",
                       position: "relative",
-                      willChange: "transform, opacity",
+
+                      // İlk HTML render'ında gizli.
+                      // Böylece GSAP başlamadan
+                      // başlık ekranda parlamaz.
+                      opacity: 0,
+                      visibility: "hidden",
+
+                      willChange:
+                        "transform, opacity",
                     }}
                   >
                     {letter}
