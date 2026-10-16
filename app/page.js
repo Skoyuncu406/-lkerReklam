@@ -1,50 +1,52 @@
 import HeroBackground from "@/components/hero/HeroBackground";
-import Navbar from "@/components/layout/Navbar";
 
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+
+import AboutSection from "@/components/home/AboutSection";
+import ContactSection from "@/components/home/ContactSection";
+import AnimatedHeroTitle from "@/components/hero/AnimatedHeroTitle";
 export default function Home() {
   return (
     <>
+      {/* =====================================
+          NAVBAR
+      ===================================== */}
       <Navbar />
 
+      {/* =====================================
+          MAIN CONTENT
+      ===================================== */}
       <main id="main-content" className="site-main">
         {/* =====================================
             HERO SECTION
         ===================================== */}
-
         <section
           id="hero"
           aria-labelledby="hero-title"
           className="hero-section"
         >
-          {/* GSAP ANIMATED BACKGROUND */}
           <HeroBackground />
 
-          {/* HERO CONTENT */}
           <div className="hero-container">
             <div className="hero-content">
-              {/* EYEBROW */}
+              {/* HERO EYEBROW */}
               <div className="hero-eyebrow">
                 <span className="hero-eyebrow-line" aria-hidden="true" />
 
                 <span>ÜLKER TABELA REKLAM</span>
               </div>
 
-              {/* MAIN HEADING */}
-              <h1 id="hero-title" className="hero-title">
-                <span>MARKANIZI</span>
+              {/* HERO TITLE */}
+              <AnimatedHeroTitle />
 
-                <span className="hero-title-gold">GÖRÜNÜR</span>
-
-                <span>KILIYORUZ.</span>
-              </h1>
-
-              {/* DESCRIPTION */}
+              {/* HERO DESCRIPTION */}
               <p className="hero-description">
                 Yaratıcı reklam uygulamaları, profesyonel tabela çözümleri ve
                 güçlü görsel tasarımlarla markanıza değer katıyoruz.
               </p>
 
-              {/* SCROLL LINK */}
+              {/* HERO SCROLL */}
               <a
                 href="#hakkimizda"
                 className="hero-scroll"
@@ -57,31 +59,24 @@ export default function Home() {
             </div>
           </div>
 
-          {/* SIDE DECORATION */}
+          {/* HERO SIDE LABEL */}
           <div className="hero-side-label" aria-hidden="true">
             DESIGN · SIGNAGE · ADVERTISING
           </div>
 
-          {/* BOTTOM LINE */}
+          {/* HERO BOTTOM LINE */}
           <div className="hero-bottom-line" aria-hidden="true" />
         </section>
 
         {/* =====================================
-            HAKKIMIZDA
+            HAKKIMIZDA SECTION
         ===================================== */}
-
-        <section id="hakkimizda" className="placeholder-section">
-          <div className="placeholder-container">
-            <span className="section-eyebrow">01 / BİZ KİMİZ</span>
-
-            <h2 className="placeholder-title">HAKKIMIZDA</h2>
-          </div>
-        </section>
+        <AboutSection />
 
         {/* =====================================
-            ÇALIŞMALARIMIZ
+            ÇALIŞMALARIMIZ SECTION
+            ŞİMDİLİK PLACEHOLDER
         ===================================== */}
-
         <section
           id="calismalarimiz"
           className="placeholder-section placeholder-section-alt"
@@ -94,9 +89,9 @@ export default function Home() {
         </section>
 
         {/* =====================================
-            REFERANSLARIMIZ
+            REFERANSLARIMIZ SECTION
+            ŞİMDİLİK PLACEHOLDER
         ===================================== */}
-
         <section id="referanslarimiz" className="placeholder-section">
           <div className="placeholder-container">
             <span className="section-eyebrow">03 / BİZE GÜVENENLER</span>
@@ -106,20 +101,15 @@ export default function Home() {
         </section>
 
         {/* =====================================
-            İLETİŞİM
+            İLETİŞİM SECTION
         ===================================== */}
-
-        <section
-          id="iletisim"
-          className="placeholder-section placeholder-section-alt"
-        >
-          <div className="placeholder-container">
-            <span className="section-eyebrow">04 / BİZE ULAŞIN</span>
-
-            <h2 className="placeholder-title">İLETİŞİM</h2>
-          </div>
-        </section>
+        <ContactSection />
       </main>
+
+      {/* =====================================
+          FOOTER
+      ===================================== */}
+      <Footer />
     </>
   );
 }
