@@ -1,5 +1,6 @@
 import { Bebas_Neue, DM_Sans } from "next/font/google";
 import "./globals.css";
+import FreeDiscoveryButton from "@/components/layout/FreeDiscoveryButton";
 
 const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
@@ -43,7 +44,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="tr" className={`${bebasNeue.variable} ${dmSans.variable}`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <FreeDiscoveryButton />
+      </body>
     </html>
   );
 }

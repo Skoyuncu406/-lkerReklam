@@ -7,33 +7,93 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import AboutFlashlight from "./AboutFlashlight";
 
 gsap.registerPlugin(ScrollTrigger);
+
+/* =========================================
+   SERVICES
+========================================= */
+
+const services = [
+  {
+    title: "Işıklı & Işıksız Tabelalar",
+    description:
+      "LED tabela, kutu harf, pleksi ve krom tabela uygulamaları.",
+  },
+  {
+    title: "Cephe Giydirme ve Totemler",
+    description:
+      "Mega boy totemler, kompozit cephe kaplamaları.",
+  },
+  {
+    title: "Yönlendirme ve İç Mekan Grafikleri",
+    description:
+      "Ofis içi yönlendirme sistemleri, kapı isimlikleri ve dijital baskı çözümleri.",
+  },
+  {
+    title: "Özel Tasarım Projeler",
+    description:
+      "Markanızın kimliğine özel, mimari uyumlu yaratıcı konseptler.",
+  },
+];
+
+/* =========================================
+   VALUES
+========================================= */
+
+const values = [
+  {
+    title: "Kalite ve Dayanıklılık",
+    description:
+      "Dış hava koşullarına dayanıklı, uzun ömürlü ve kaliteli malzemeler kullanırız.",
+  },
+  {
+    title: "Zamanında Teslimat",
+    description:
+      "Söz verdiğimiz günde, profesyonel ekibimizle montajı tamamlarız.",
+  },
+  {
+    title: "Müşteri Odaklılık",
+    description:
+      "Sizin hayal ettiğiniz tasarımı gerçeğe dönüştürmek için tasarımdan önce dinler, ortak akılla en iyisini üretiriz.",
+  },
+];
+
+/* =========================================
+   ABOUT SECTION
+========================================= */
 
 export default function AboutSection() {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
   const contentRef = useRef(null);
 
+  /* =========================================
+     SCROLL ANIMATIONS
+  ========================================= */
+
   useEffect(() => {
     const section = sectionRef.current;
+    const image = imageRef.current;
+    const content = contentRef.current;
 
-    if (!section) return;
+    if (!section || !image || !content) return;
 
-    const reduceMotion = window.matchMedia(
+    const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    if (reduceMotion) return;
+    if (reducedMotion) return;
 
-    const context = gsap.context(() => {
+    const ctx = gsap.context(() => {
+      /* IMAGE REVEAL */
+
       gsap.fromTo(
-        imageRef.current,
+        image,
         {
           opacity: 0,
-          y: 65,
-          scale: 1.06,
+          y: 45,
+          scale: 1.025,
         },
         {
           opacity: 1,
@@ -43,89 +103,112 @@ export default function AboutSection() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: section,
-            start: "top 78%",
+            start: "top 80%",
             once: true,
           },
         }
       );
 
-      const elements = contentRef.current.querySelectorAll(
-        "[data-about-reveal]"
+      /* CONTENT REVEAL */
+
+      const elements = gsap.utils.toArray(
+        content.querySelectorAll("[data-about-reveal]")
       );
 
-      gsap.fromTo(
-        elements,
-        {
-          opacity: 0,
-          y: 35,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          stagger: 0.13,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 72%",
-            once: true,
+      elements.forEach((element) => {
+        gsap.fromTo(
+          element,
+          {
+            opacity: 0,
+            y: 28,
           },
-        }
-      );
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.85,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 92%",
+              once: true,
+            },
+          }
+        );
+      });
     }, section);
 
-    return () => context.revert();
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={sectionRef}
       id="hakkimizda"
-      className="about-section"
+      className="about-section about-section-expanded about-section-premium"
       aria-labelledby="about-title"
     >
-        <AboutFlashlight />
-      <div className="about-container">
-        {/* IMAGE SIDE */}
-        <div className="about-visual">
-          <div ref={imageRef} className="about-image-wrap">
-            <Image
-              src="/images/about/about-workshop.jpg"
-              alt="Ülker Tabela Reklam tabela üretimi ve uygulama çalışmaları"
-              fill
-              sizes="(max-width: 1023px) 100vw, 45vw"
-              className="about-image"
-            />
+      <div className="about-container about-container-expanded">
+        {/* =====================================
+            LEFT IMAGE
+        ===================================== */}
 
+        <div className="about-visual about-visual-expanded">
+          <div className="about-visual-sticky">
             <div
-              className="about-image-overlay"
-              aria-hidden="true"
-            />
-          </div>
+              ref={imageRef}
+              className="about-image-wrap about-image-expanded"
+            >
+              <Image
+                src="/images/about/about-workshop.jpg"
+                alt="Ülker Tabela Reklam tabela üretimi ve uygulama çalışmaları"
+                fill
+                sizes="(max-width: 1023px) 100vw, 44vw"
+                className="about-image"
+              />
 
-          <div className="about-image-caption">
-            <span>ÜLKER TABELA REKLAM</span>
-            <span>İSTANBUL / TÜRKİYE</span>
+              <div
+                className="about-image-overlay"
+                aria-hidden="true"
+              />
+            </div>
+
+            <div className="about-image-caption">
+              <span>ÜLKER TABELA REKLAM</span>
+              <span>İSTANBUL / TÜRKİYE</span>
+            </div>
           </div>
         </div>
 
-        {/* CONTENT SIDE */}
-        <div ref={contentRef} className="about-content">
-          <div className="about-eyebrow" data-about-reveal>
+        {/* =====================================
+            RIGHT CONTENT
+        ===================================== */}
+
+        <div
+          ref={contentRef}
+          className="about-content about-content-expanded"
+        >
+          {/* EYEBROW */}
+
+          <div
+            className="about-eyebrow"
+            data-about-reveal
+          >
             <span className="about-eyebrow-line" />
             <span>01 / BİZ KİMİZ</span>
           </div>
+
+          {/* TITLE */}
 
           <h2
             id="about-title"
             className="about-title"
             data-about-reveal
           >
-            <span>FİKİRLERİ</span>
+            <span>MARKANIZIN</span>
+
             <span className="about-title-gold">
-              GÖRÜNÜR
+              IŞIĞI VE YÜZÜ
             </span>
-            <span>KILIYORUZ.</span>
           </h2>
 
           <div
@@ -133,32 +216,133 @@ export default function AboutSection() {
             data-about-reveal
           />
 
-          <p
-            className="about-lead"
-            data-about-reveal
-          >
-            Markaların hikâyelerini güçlü ve etkileyici
-            görsel çözümlere dönüştürüyoruz.
-          </p>
+          {/* =====================================
+              INTRODUCTION
+          ===================================== */}
 
-          <p
-            className="about-description"
+          <div
+            className="about-introduction"
             data-about-reveal
           >
-            Ülker Tabela Reklam olarak tasarım, üretim ve
-            uygulama süreçlerini bir bütün olarak ele
-            alıyoruz. Her projede estetik, işlevsellik
-            ve kaliteli işçiliği bir araya getirerek
-            markaların görünürlüğünü güçlendirmeyi
-            hedefliyoruz.
-          </p>
+            <p className="about-lead">
+              2005 yılında İstanbul&apos;da kurulan
+              Ülker Tabela Reklam, işletmelerin ve
+              markaların kendilerini en doğru,
+              dikkat çekici ve estetik şekilde
+              ifade etmelerine olanak tanıyan
+              profesyonel tabela ve görsel iletişim
+              çözümleri sunmaktadır.
+            </p>
+
+            <p className="about-description">
+              Kurulduğumuz günden bu yana; küçük
+              esnaftan büyük zincir mağazalara,
+              kurumsal ofislerden alışveriş
+              merkezlerine kadar geniş bir yelpazede
+              yüzlerce projeye imza attık. Tasarım
+              aşamasından imalata, montajdan satış
+              sonrası desteğe kadar tüm süreçleri
+              kendi bünyemizde, titizlikle
+              yürütüyoruz.
+            </p>
+          </div>
+
+          {/* =====================================
+              SERVICES
+          ===================================== */}
+
+          <div
+            className="about-detail-group"
+            data-about-reveal
+          >
+            <h3 className="about-detail-title">
+              NELER YAPIYORUZ?
+            </h3>
+
+            <ul className="about-detail-list">
+              {services.map((service) => (
+                <li
+                  key={service.title}
+                  className="about-detail-item"
+                >
+                  <span
+                    className="about-detail-dot"
+                    aria-hidden="true"
+                  />
+
+                  <p>
+                    <strong>{service.title}:</strong>{" "}
+                    {service.description}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* =====================================
+              VALUES
+          ===================================== */}
+
+          <div
+            className="about-detail-group"
+            data-about-reveal
+          >
+            <h3 className="about-detail-title">
+              VİZYONUMUZ VE DEĞERLERİMİZ
+            </h3>
+
+            <ul className="about-detail-list">
+              {values.map((value) => (
+                <li
+                  key={value.title}
+                  className="about-detail-item"
+                >
+                  <span
+                    className="about-detail-dot"
+                    aria-hidden="true"
+                  />
+
+                  <p>
+                    <strong>{value.title}:</strong>{" "}
+                    {value.description}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* =====================================
+              CLOSING
+          ===================================== */}
+
+          <div
+            className="about-closing"
+            data-about-reveal
+          >
+            <p className="about-description">
+              Markanızın hak ettiği görünürlüğü
+              sağlamak ve logonuzu zirveye taşımak
+              için buradayız. Tabelanız sadece bir
+              isim değil; işinizin kalitesini
+              yansıtan ilk adımdır.
+            </p>
+
+            <p className="about-closing-title">
+              IŞIĞINIZI BİRLİKTE PARLATALIM.
+            </p>
+          </div>
+
+          {/* =====================================
+              SERVICES CTA
+          ===================================== */}
 
           <Link
-            href="#calismalarimiz"
+            href="#hizmetlerimiz"
             className="about-link"
             data-about-reveal
           >
-            <span>ÇALIŞMALARIMIZI KEŞFEDİN</span>
+            <span>HİZMETLERİMİZİ KEŞFEDİN</span>
+
             <ArrowUpRight
               size={19}
               strokeWidth={1.5}

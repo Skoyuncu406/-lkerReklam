@@ -6,6 +6,8 @@ import Footer from "@/components/layout/Footer";
 import AboutSection from "@/components/home/AboutSection";
 import ContactSection from "@/components/home/ContactSection";
 import AnimatedHeroTitle from "@/components/hero/AnimatedHeroTitle";
+import ReferencesSection from "@/components/home/ReferencesSection";
+import ServicesSection from "@/components/home/ServicesSection";
 export default function Home() {
   return (
     <>
@@ -77,28 +79,13 @@ export default function Home() {
             ÇALIŞMALARIMIZ SECTION
             ŞİMDİLİK PLACEHOLDER
         ===================================== */}
-        <section
-          id="calismalarimiz"
-          className="placeholder-section placeholder-section-alt"
-        >
-          <div className="placeholder-container">
-            <span className="section-eyebrow">02 / PROJELERİMİZ</span>
-
-            <h2 className="placeholder-title">ÇALIŞMALARIMIZ</h2>
-          </div>
-        </section>
+        <ServicesSection />
 
         {/* =====================================
             REFERANSLARIMIZ SECTION
             ŞİMDİLİK PLACEHOLDER
         ===================================== */}
-        <section id="referanslarimiz" className="placeholder-section">
-          <div className="placeholder-container">
-            <span className="section-eyebrow">03 / BİZE GÜVENENLER</span>
-
-            <h2 className="placeholder-title">REFERANSLARIMIZ</h2>
-          </div>
-        </section>
+        <ReferencesSection />
 
         {/* =====================================
             İLETİŞİM SECTION

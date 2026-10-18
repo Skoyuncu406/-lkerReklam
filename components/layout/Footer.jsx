@@ -8,16 +8,39 @@ import {
   Phone,
 } from "lucide-react";
 
+/* =========================================
+   NAVIGATION
+========================================= */
+
 const navigation = [
   { label: "Ana Sayfa", href: "#hero" },
   { label: "Hakkımızda", href: "#hakkimizda" },
-  { label: "Çalışmalarımız", href: "#calismalarimiz" },
+  { label: "Hizmetlerimiz", href: "#hizmetlerimiz" },
   { label: "Referanslarımız", href: "#referanslarimiz" },
   { label: "İletişim", href: "#iletisim" },
 ];
 
+/* =========================================
+   CONTACT INFORMATION
+========================================= */
+
 const email = "ulkertabelareklam@outlook.com.tr";
-const phone = "905378235943";
+
+const phones = [
+  {
+    display: "0537 823 59 43",
+    number: "905378235943",
+  },
+  {
+    display: "0507 333 20 00",
+    number: "905073332000",
+  },
+];
+
+const instagramUsername = "ulker.tabela.reklam";
+
+const instagramUrl =
+  `https://www.instagram.com/${instagramUsername}/`;
 
 const address =
   "Yeşilova Mahallesi, Dumlupınar Caddesi No: 59/B, Küçükçekmece / İstanbul";
@@ -26,15 +49,69 @@ const directionsUrl =
   "https://www.google.com/maps/dir/?api=1&destination=" +
   encodeURIComponent(address);
 
+/* =========================================
+   INSTAGRAM ICON
+========================================= */
+
+function InstagramIcon() {
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      style={{ flexShrink: 0 }}
+    >
+      <rect
+        x="2"
+        y="2"
+        width="20"
+        height="20"
+        rx="5"
+        ry="5"
+      />
+
+      <circle
+        cx="12"
+        cy="12"
+        r="4"
+      />
+
+      <circle
+        cx="17.5"
+        cy="6.5"
+        r="1"
+        fill="currentColor"
+        stroke="none"
+      />
+    </svg>
+  );
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
 export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-container">
+
         {/* =====================================
             FOOTER MAIN CONTENT
         ===================================== */}
+
         <div className="footer-top">
-          {/* BRAND */}
+
+          {/* =====================================
+              BRAND
+          ===================================== */}
+
           <div className="footer-brand">
             <Link
               href="#hero"
@@ -68,11 +145,17 @@ export default function Footer() {
                 className="footer-brand-line"
                 aria-hidden="true"
               />
-              <span>MARKANIZI GÖRÜNÜR KILIYORUZ.</span>
+
+              <span>
+                MARKANIZI GÖRÜNÜR KILIYORUZ.
+              </span>
             </div>
           </div>
 
-          {/* NAVIGATION */}
+          {/* =====================================
+              NAVIGATION
+          ===================================== */}
+
           <div className="footer-navigation">
             <h3 className="footer-column-title">
               HIZLI ERİŞİM
@@ -97,21 +180,36 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* CONTACT */}
+          {/* =====================================
+              CONTACT
+          ===================================== */}
+
           <div className="footer-contact">
             <h3 className="footer-column-title">
               İLETİŞİM
             </h3>
 
             <div className="footer-contact-items">
-              <a href={`tel:+${phone}`}>
-                <Phone
-                  size={16}
-                  strokeWidth={1.6}
-                  aria-hidden="true"
-                />
-                <span>0537 823 59 43</span>
-              </a>
+
+              {/* PHONE NUMBERS */}
+
+              {phones.map((phone) => (
+                <a
+                  key={phone.number}
+                  href={`tel:+${phone.number}`}
+                  aria-label={`${phone.display} numarasını ara`}
+                >
+                  <Phone
+                    size={16}
+                    strokeWidth={1.6}
+                    aria-hidden="true"
+                  />
+
+                  <span>{phone.display}</span>
+                </a>
+              ))}
+
+              {/* EMAIL */}
 
               <a href={`mailto:${email}`}>
                 <Mail
@@ -119,8 +217,26 @@ export default function Footer() {
                   strokeWidth={1.6}
                   aria-hidden="true"
                 />
+
                 <span>{email}</span>
               </a>
+
+              {/* INSTAGRAM */}
+
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Instagram hesabımız: @${instagramUsername}`}
+              >
+                <InstagramIcon />
+
+                <span>
+                  @{instagramUsername}
+                </span>
+              </a>
+
+              {/* ADDRESS */}
 
               <a
                 href={directionsUrl}
@@ -147,6 +263,7 @@ export default function Footer() {
         {/* =====================================
             FOOTER BOTTOM
         ===================================== */}
+
         <div className="footer-bottom">
           <p>
             © {new Date().getFullYear()} Ülker Tabela
