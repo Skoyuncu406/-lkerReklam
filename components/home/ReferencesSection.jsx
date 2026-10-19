@@ -4,40 +4,69 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
-import { getActiveReferences } from "@/data/references";
 
 function ReferenceItem({ reference }) {
   return (
-    <div className="ulker-reference-item">
+    <div
+      className="ulker-reference-item"
+      style={{
+        position: "relative",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "112px",
+      }}
+    >
       {reference.logo ? (
         <div className="ulker-reference-with-logo">
-          <div className="ulker-reference-logo">
+          <div
+            className="ulker-reference-logo"
+            style={{
+              position: "relative",
+              display: "block",
+              width: "var(--reference-logo-width, 130px)",
+              height: "var(--reference-logo-height, 65px)",
+              overflow: "hidden",
+              isolation: "isolate",
+              flexShrink: 0,
+            }}
+          >
             <Image
               src={reference.logo}
-              alt={`${reference.name} logosu`}
+              alt={reference.name ? `${reference.name} logosu` : "Firma logosu"}
               fill
               sizes="(max-width: 767px) 90px, 130px"
               className="object-contain"
+              loading="lazy"
+              quality={85}
             />
           </div>
 
-          <span className="ulker-reference-name">
-            {reference.name}
-          </span>
+          {reference.name && (
+            <span className="ulker-reference-name">
+              {reference.name}
+            </span>
+          )}
         </div>
-      ) : (
+      ) : reference.name ? (
         <span className="ulker-reference-name ulker-reference-name-only">
           {reference.name}
         </span>
-      )}
+      ) : null}
     </div>
   );
 }
 
-export default function ReferencesSection() {
+export default function ReferencesSection({ references = [] }) {
   const [isExpanded, setIsExpanded] = useState(false);
-
-  const references = getActiveReferences();
+  const visibleReferences = references.filter(
+    (reference) => Boolean(reference.logo || reference.name?.trim())
+  );
+  const shouldAnimate = visibleReferences.length >= 4;
+  // Each half of the marquee must be wider than the viewport.
+  const sliderReferences = shouldAnimate
+    ? Array.from({ length: 3 }, () => visibleReferences).flat()
+    : visibleReferences;
 
   return (
     <section
@@ -48,7 +77,17 @@ export default function ReferencesSection() {
       <div className="ulker-references-container">
         {/* HEADER */}
 
-        <div className="ulker-references-heading">
+        <div
+          className="ulker-references-heading"
+          style={{
+            position: "relative",
+            zIndex: 2,
+            display: "block",
+            visibility: "visible",
+            opacity: 1,
+            transform: "none",
+          }}
+        >
           <div className="ulker-references-eyebrow">
             <span className="ulker-references-line" />
             <span>03 / BİZE GÜVENENLER</span>
@@ -57,11 +96,15 @@ export default function ReferencesSection() {
           <h2
             id="references-title"
             className="ulker-references-title"
+            style={{ visibility: "visible", opacity: 1, transform: "none" }}
           >
             REFERANS<span>LARIMIZ</span>
           </h2>
 
-<p className="ulker-references-description">
+          <p
+            className="ulker-references-description"
+            style={{ visibility: "visible", opacity: 1, transform: "none" }}
+          >
   2005 yılından bu yana{" "}
   <strong className="font-semibold text-[#D5A02C]">
     7.000&apos;den fazla referansımızla
@@ -76,39 +119,43 @@ export default function ReferencesSection() {
   kaliteli üretimi, güvenilir hizmeti ve uzun
   soluklu iş birliklerini ön planda tutuyoruz.{" "}
 
-</p>
+          </p>
         </div>
       </div>
 
-      {/* CONTINUOUS SLIDER */}
+      {/* REFERENCES: STATIC FOR 1-3, CONTINUOUS FOR 4+ */}
 
-      {references.length > 0 && (
+      {visibleReferences.length > 0 && (
         <div
-          className="ulker-references-slider"
+          className={`ulker-references-slider ${
+            shouldAnimate ? "is-animated" : "is-static"
+          }`}
           aria-label="Referanslarımız"
         >
           <div className="ulker-references-track">
             <div className="ulker-references-set">
-              {references.map((reference) => (
+              {sliderReferences.map((reference, index) => (
                 <ReferenceItem
-                  key={reference.id}
+                  key={`${reference.id}-${index}`}
                   reference={reference}
                 />
               ))}
             </div>
 
-            <div
-              className="ulker-references-set"
-              aria-hidden="true"
-              inert
-            >
-              {references.map((reference) => (
-                <ReferenceItem
-                  key={`duplicate-${reference.id}`}
-                  reference={reference}
-                />
-              ))}
-            </div>
+            {shouldAnimate && (
+              <div
+                className="ulker-references-set"
+                aria-hidden="true"
+                inert
+              >
+                {sliderReferences.map((reference, index) => (
+                  <ReferenceItem
+                    key={`duplicate-${reference.id}-${index}`}
+                    reference={reference}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -117,23 +164,25 @@ export default function ReferencesSection() {
 
       <div className="ulker-references-container">
         <div className="ulker-references-bottom">
-          <button
-            type="button"
-            className={`ulker-references-toggle ${
-              isExpanded ? "is-expanded" : ""
-            }`}
-            aria-expanded={isExpanded}
-            aria-controls="ulker-all-references"
-            onClick={() => setIsExpanded((prev) => !prev)}
-          >
-            <span>TÜM REFERANSLARIMIZ</span>
-
-            <ChevronDown
-              size={21}
-              strokeWidth={1.6}
-              aria-hidden="true"
-            />
-          </button>
+          {visibleReferences.length > 0 && (
+              <button
+              type="button"
+              className={`ulker-references-toggle ${
+                isExpanded ? "is-expanded" : ""
+              }`}
+              aria-expanded={isExpanded}
+              aria-controls="ulker-all-references"
+              onClick={() => setIsExpanded((prev) => !prev)}
+            >
+              <span>TÜM REFERANSLARIMIZ</span>
+  
+              <ChevronDown
+                size={21}
+                strokeWidth={1.6}
+                aria-hidden="true"
+              />
+            </button>
+          )}
 
           <div
             id="ulker-all-references"
@@ -145,7 +194,7 @@ export default function ReferencesSection() {
           >
             <div className="ulker-references-dropdown-inner">
               <div className="ulker-references-list">
-                {references.map((reference, index) => (
+                {visibleReferences.map((reference, index) => (
                   <div
                     className="ulker-references-list-item"
                     key={reference.id}
@@ -158,17 +207,20 @@ export default function ReferencesSection() {
                       <div className="ulker-references-list-logo">
                         <Image
                           src={reference.logo}
-                          alt=""
+                          alt={reference.name ? "" : "Firma logosu"}
                           fill
                           sizes="45px"
                           className="object-contain"
+                          loading="lazy"
                         />
                       </div>
                     )}
 
-                    <span className="ulker-references-list-name">
-                      {reference.name}
-                    </span>
+                    {reference.name && (
+                      <span className="ulker-references-list-name">
+                        {reference.name}
+                      </span>
+                    )}
 
                     <ArrowUpRight
                       size={17}
@@ -190,6 +242,7 @@ export default function ReferencesSection() {
         .ulker-references-section {
           position: relative;
           isolation: isolate;
+          z-index: 1;
           width: 100%;
           min-height: 70svh;
           padding: 110px 0 115px;
@@ -274,11 +327,30 @@ export default function ReferencesSection() {
         .ulker-references-track {
           display: flex;
           width: max-content;
-          animation: ulker-references-move 36s linear infinite;
+          transform: translateX(0);
+        }
+
+        .ulker-references-slider.is-animated .ulker-references-track {
+          animation: ulker-references-move 60s linear infinite;
           will-change: transform;
         }
 
-        .ulker-references-slider:hover
+        .ulker-references-slider.is-static .ulker-references-track {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .ulker-references-slider.is-static .ulker-references-set {
+          width: 100%;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .ulker-references-slider.is-static {
+          mask-image: none;
+        }
+
+        .ulker-references-slider.is-animated:hover
         .ulker-references-track {
           animation-play-state: paused;
         }
@@ -311,8 +383,11 @@ export default function ReferencesSection() {
 
         .ulker-reference-logo {
           position: relative;
+          display: block;
           width: 130px;
           height: 65px;
+          overflow: hidden;
+          isolation: isolate;
         }
 
         .ulker-reference-name {
@@ -338,11 +413,11 @@ export default function ReferencesSection() {
 
         @keyframes ulker-references-move {
           from {
-            transform: translateX(-50%);
+            transform: translateX(0);
           }
 
           to {
-            transform: translateX(0);
+            transform: translateX(-50%);
           }
         }
 
@@ -442,6 +517,8 @@ export default function ReferencesSection() {
           flex: 0 0 45px;
           width: 45px;
           height: 38px;
+          overflow: hidden;
+          isolation: isolate;
         }
 
         .ulker-references-list-name {
@@ -519,6 +596,8 @@ export default function ReferencesSection() {
           }
 
           .ulker-reference-logo {
+            --reference-logo-width: 90px;
+            --reference-logo-height: 55px;
             width: 90px;
             height: 55px;
           }
@@ -531,8 +610,8 @@ export default function ReferencesSection() {
             font-size: 19px;
           }
 
-          .ulker-references-track {
-            animation-duration: 28s;
+          .ulker-references-slider.is-animated .ulker-references-track {
+            animation-duration: 300s;
           }
 
           .ulker-references-bottom {
@@ -558,6 +637,7 @@ export default function ReferencesSection() {
         @media (prefers-reduced-motion: reduce) {
           .ulker-references-track {
             animation: none !important;
+            transform: none !important;
           }
 
           .ulker-references-slider {

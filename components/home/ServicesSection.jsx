@@ -3,12 +3,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { createPortal } from "react-dom";
 import {
   ArrowLeft,
   ArrowRight,
   ImageIcon,
+  Maximize2,
+  X,
 } from "lucide-react";
-import { getActiveServices } from "@/data/services";
 
 /* =========================================
    SERVICE GALLERY
@@ -16,11 +18,40 @@ import { getActiveServices } from "@/data/services";
 
 function ServiceGallery({ service }) {
   const sliderRef = useRef(null);
+  const lightboxTouchStartX = useRef(null);
 
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const images = service.images || [];
+  const viewableImages = images.filter((image) => Boolean(image.src));
+  const activeImage = lightboxIndex === null ? null : viewableImages[lightboxIndex];
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setLightboxIndex(null);
+      if (event.key === "ArrowRight" && viewableImages.length > 1) {
+        setLightboxIndex((current) => (current + 1) % viewableImages.length);
+      }
+      if (event.key === "ArrowLeft" && viewableImages.length > 1) {
+        setLightboxIndex((current) =>
+          (current - 1 + viewableImages.length) % viewableImages.length
+        );
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [lightboxIndex, viewableImages.length]);
 
   const updateButtons = useCallback(() => {
     const slider = sliderRef.current;
@@ -195,6 +226,20 @@ function ServiceGallery({ service }) {
                     aria-hidden="true"
                   />
 
+                  {image.src && (
+                    <button
+                      type="button"
+                      className="ulker-service-expand"
+                      aria-label={`${service.title}: ${index + 1}. görseli büyüt`}
+                      onClick={() => {
+                        const selected = viewableImages.findIndex((item) => item.id === image.id);
+                        if (selected !== -1) setLightboxIndex(selected);
+                      }}
+                    >
+                      <Maximize2 size={19} strokeWidth={1.7} aria-hidden="true" />
+                    </button>
+                  )}
+
                   <span className="ulker-service-image-number">
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -208,6 +253,76 @@ function ServiceGallery({ service }) {
           Bu hizmet için henüz görsel eklenmedi.
         </div>
       )}
+      {activeImage && createPortal(
+        <div
+          className="ulker-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${service.title} görsel görüntüleyici`}
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setLightboxIndex(null);
+          }}
+          onTouchStart={(event) => {
+            lightboxTouchStartX.current = event.touches[0]?.clientX ?? null;
+          }}
+          onTouchEnd={(event) => {
+            const startX = lightboxTouchStartX.current;
+            const endX = event.changedTouches[0]?.clientX;
+            lightboxTouchStartX.current = null;
+            if (startX === null || endX == null || viewableImages.length < 2) return;
+            const delta = endX - startX;
+            if (Math.abs(delta) < 55) return;
+            setLightboxIndex((current) =>
+              delta < 0
+                ? (current + 1) % viewableImages.length
+                : (current - 1 + viewableImages.length) % viewableImages.length
+            );
+          }}
+        >
+          <div className="ulker-lightbox-top">
+            <span>{service.title} — {lightboxIndex + 1} / {viewableImages.length}</span>
+            <button
+              type="button"
+              className="ulker-lightbox-close"
+              aria-label="Görseli kapat"
+              onClick={() => setLightboxIndex(null)}
+              autoFocus
+            >
+              <X size={25} strokeWidth={1.6} />
+            </button>
+          </div>
+          <div className="ulker-lightbox-image-wrap">
+            <Image
+              src={activeImage.src}
+              alt={activeImage.alt || `${service.title} görsel ${lightboxIndex + 1}`}
+              fill
+              sizes="100vw"
+              className="ulker-lightbox-image"
+            />
+          </div>
+          {viewableImages.length > 1 && (
+            <>
+              <button
+                type="button"
+                className="ulker-lightbox-nav ulker-lightbox-prev"
+                aria-label="Önceki görsel"
+                onClick={() => setLightboxIndex((i) => (i - 1 + viewableImages.length) % viewableImages.length)}
+              >
+                <ArrowLeft size={25} />
+              </button>
+              <button
+                type="button"
+                className="ulker-lightbox-nav ulker-lightbox-next"
+                aria-label="Sonraki görsel"
+                onClick={() => setLightboxIndex((i) => (i + 1) % viewableImages.length)}
+              >
+                <ArrowRight size={25} />
+              </button>
+            </>
+          )}
+        </div>,
+        document.body
+      )}
     </article>
   );
 }
@@ -216,8 +331,7 @@ function ServiceGallery({ service }) {
    SERVICES SECTION
 ========================================= */
 
-export default function ServicesSection() {
-  const services = getActiveServices();
+export default function ServicesSection({ services = [] }) {
 
   return (
     <section
@@ -582,6 +696,55 @@ export default function ServicesSection() {
           font-size: 11px;
           font-weight: 600;
           letter-spacing: 0.08em;
+        }
+
+        /* FULLSCREEN IMAGE VIEWER */
+        .ulker-service-expand {
+          position: absolute; right: 13px; top: 13px; z-index: 2;
+          display: grid; place-items: center; width: 39px; height: 39px;
+          border: 1px solid rgba(244,240,232,.55); border-radius: 50%;
+          color: #f4f0e8; background: rgba(23,23,23,.72);
+          cursor: pointer; backdrop-filter: blur(8px);
+          transition: background .2s ease, border-color .2s ease, color .2s ease;
+        }
+        .ulker-service-expand:hover, .ulker-service-expand:focus-visible {
+          background: #d5a02c; color: #171717; border-color: #d5a02c;
+        }
+        .ulker-lightbox {
+          position: fixed; inset: 0; z-index: 9999;
+          background: rgba(10,10,10,.97); color: #f4f0e8;
+          display: flex; align-items: center; justify-content: center;
+          padding: 75px 70px 50px;
+        }
+        .ulker-lightbox-top {
+          position: absolute; z-index: 2; top: 18px; left: 25px; right: 25px;
+          display: flex; align-items: center; justify-content: space-between;
+          gap: 15px; font-family: var(--font-dm-sans), Arial, sans-serif;
+          font-size: 12px; letter-spacing: .05em;
+        }
+        .ulker-lightbox-close, .ulker-lightbox-nav {
+          display: grid; place-items: center; flex-shrink: 0;
+          width: 44px; height: 44px; border: 1px solid rgba(244,240,232,.45);
+          border-radius: 50%; background: rgba(23,23,23,.7);
+          color: #f4f0e8; cursor: pointer;
+          transition: background .2s ease, color .2s ease;
+        }
+        .ulker-lightbox-close:hover, .ulker-lightbox-nav:hover,
+        .ulker-lightbox-close:focus-visible, .ulker-lightbox-nav:focus-visible {
+          background: #d5a02c; color: #171717;
+        }
+        .ulker-lightbox-image-wrap { position: relative; width: 100%; height: 100%; }
+        .ulker-lightbox-image { object-fit: contain; }
+        .ulker-lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; }
+        .ulker-lightbox-prev { left: 16px; }
+        .ulker-lightbox-next { right: 16px; }
+        @media (max-width: 767px) {
+          .ulker-service-expand { width: 34px; height: 34px; right: 9px; top: 9px; }
+          .ulker-lightbox { padding: 75px 12px 70px; }
+          .ulker-lightbox-top { left: 15px; right: 15px; }
+          .ulker-lightbox-nav { top: auto; bottom: 14px; transform: none; }
+          .ulker-lightbox-prev { left: calc(50% - 55px); }
+          .ulker-lightbox-next { right: calc(50% - 55px); }
         }
 
         /* =====================================

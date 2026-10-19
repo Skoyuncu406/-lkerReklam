@@ -7,7 +7,6 @@ import { ArrowUpRight, ChevronDown, Menu, Phone, X } from "lucide-react";
 import gsap from "gsap";
 
 import AnnouncementBar from "./AnnouncementBar";
-import { getActiveServices } from "@/data/services";
 
 /* =========================================
    CONFIGURATION
@@ -61,7 +60,7 @@ function QuickContactLinks({ mobile = false }) {
    NAVBAR
 ========================================= */
 
-export default function Navbar() {
+export default function Navbar({ services = [] }) {
   const navbarRef = useRef(null);
   const logoRef = useRef(null);
   const desktopNavRef = useRef(null);
@@ -75,7 +74,6 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const services = getActiveServices();
 
   /* =========================================
      SCROLL STATE
@@ -134,57 +132,7 @@ export default function Navbar() {
     };
   }, []);
 
-  /* =========================================
-     NAVBAR ENTRANCE ANIMATION
-  ========================================= */
 
-  useEffect(() => {
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (reducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        navbarRef.current,
-        {
-          y: -24,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.9,
-          ease: "power3.out",
-        }
-      );
-
-      gsap.fromTo(
-        [
-          logoRef.current,
-          desktopNavRef.current,
-          ctaRef.current,
-        ].filter(Boolean),
-        {
-          y: -10,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.1,
-          delay: 0.2,
-          ease: "power2.out",
-        }
-      );
-    }, navbarRef);
-
-    return () => {
-      ctx.revert();
-    };
-  }, []);
 
   /* =========================================
      ACTIVE SECTION TRACKING
@@ -616,24 +564,32 @@ export default function Navbar() {
                     >
                       {item.label}
                       <ChevronDown size={14} strokeWidth={1.7} aria-hidden="true" />
-                    </Link>
-                    {services.length > 0 && (
-                      <div className="ulker-services-dropdown">
-                        <div className="ulker-services-dropdown-scroll">
-                          {services.map((service) => (
-                            <Link
-                              key={service.id}
-                              href={`#hizmet-${service.id}`}
-                              onClick={(event) => handleSectionClick(event, `#hizmet-${service.id}`)}
-                              className="ulker-services-dropdown-link"
-                            >
-                              <span>{service.title}</span>
-                              <ArrowUpRight size={15} strokeWidth={1.5} aria-hidden="true" />
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                   </Link>
+
+{services.length > 0 && (
+  <div className="ulker-services-dropdown">
+    <div className="ulker-services-dropdown-scroll">
+      {services.map((service) => (
+        <Link
+          key={service.id}
+          href={`#hizmet-${service.id}`}
+          onClick={(event) =>
+            handleSectionClick(event, `#hizmet-${service.id}`)
+          }
+          className="ulker-services-dropdown-link"
+        >
+          <span>{service.title}</span>
+
+          <ArrowUpRight
+            size={15}
+            strokeWidth={1.5}
+            aria-hidden="true"
+          />
+        </Link>
+      ))}
+    </div>
+  </div>
+)}
                   </div>
                 );
               }

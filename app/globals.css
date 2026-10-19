@@ -1,11 +1,6 @@
 
 @import "tailwindcss";
 
-/* =========================================
-   ÜLKER TABELA REKLAM
-   DESIGN SYSTEM
-========================================= */
-
 :root {
   --background: #171717;
   --foreground: #f4f0e8;
@@ -20,7 +15,6 @@
   --font-body: var(--font-dm-sans), Arial, sans-serif;
   --font-heading: var(--font-bebas), Impact, sans-serif;
 
-  /* HEADER DIMENSIONS */
   --announcement-height: 34px;
   --navbar-height: 96px;
   --navbar-compact-height: 76px;
@@ -37,10 +31,6 @@
   --font-sans: var(--font-dm-sans);
   --font-display: var(--font-bebas);
 }
-
-/* =========================================
-   RESET
-========================================= */
 
 *,
 *::before,
@@ -101,10 +91,6 @@ a {
   outline-offset: 4px;
 }
 
-/* =========================================
-   TYPOGRAPHY
-========================================= */
-
 .font-display {
   font-family: var(--font-heading);
   font-weight: 400;
@@ -131,10 +117,6 @@ a {
   color: var(--color-gold);
 }
 
-/* =========================================
-   SCROLLBAR
-========================================= */
-
 @media (min-width: 768px) {
   ::-webkit-scrollbar {
     width: 7px;
@@ -153,10 +135,6 @@ a {
     background: var(--color-gold);
   }
 }
-
-/* =========================================
-   ANNOUNCEMENT BAR
-========================================= */
 
 .announcement-bar {
   position: relative;
@@ -231,10 +209,6 @@ a {
   }
 }
 
-/* =========================================
-   NAVBAR SHELL
-========================================= */
-
 .navbar-shell {
   width: 100%;
   max-width: 100%;
@@ -258,10 +232,6 @@ a {
   -webkit-backdrop-filter: blur(18px);
 }
 
-/* =========================================
-   NAVBAR HEIGHT
-========================================= */
-
 .navbar-inner {
   width: 100%;
   min-width: 0;
@@ -275,10 +245,6 @@ a {
 .navbar-inner.navbar-inner-compact {
   height: var(--navbar-compact-height);
 }
-
-/* =========================================
-   NAVBAR LOGO
-========================================= */
 
 .navbar-logo {
   position: relative;
@@ -297,10 +263,6 @@ a {
   width: 130px;
   height: 54px;
 }
-
-/* =========================================
-   DESKTOP NAV LINKS
-========================================= */
 
 .nav-link {
   position: relative;
@@ -349,10 +311,6 @@ a {
   transform: scaleX(1);
   transform-origin: left;
 }
-
-/* =========================================
-   DESKTOP CTA
-========================================= */
 
 .nav-cta {
   position: relative;
@@ -436,10 +394,6 @@ a {
   min-width: 150px;
 }
 
-/* =========================================
-   MOBILE MENU
-========================================= */
-
 .mobile-menu {
   width: 100%;
   max-width: 100%;
@@ -476,10 +430,6 @@ a {
 .mobile-menu-link:hover {
   transform: translateX(5px);
 }
-
-/* =========================================
-   MOBILE CTA
-========================================= */
 
 .mobile-cta {
   position: relative;
@@ -561,19 +511,11 @@ a {
   transform: scale(0.97);
 }
 
-/* =========================================
-   SITE MAIN
-========================================= */
-
 .site-main {
   width: 100%;
   min-width: 0;
   max-width: 100%;
 }
-
-/* =========================================
-   HERO FULL VIEWPORT
-========================================= */
 
 .hero-section {
   position: relative;
@@ -584,12 +526,6 @@ a {
   width: 100%;
   min-width: 0;
   max-width: 100%;
-
-  /*
-   Navbar is fixed.
-   Hero itself occupies one viewport.
-   Header space is reserved INSIDE Hero.
-  */
 
   min-height: 100vh;
   min-height: 100svh;
@@ -631,10 +567,6 @@ a {
   max-width: 1100px;
 }
 
-/* =========================================
-   HERO EYEBROW
-========================================= */
-
 .hero-eyebrow {
   display: flex;
   align-items: center;
@@ -660,10 +592,6 @@ a {
 
   background: var(--color-gold);
 }
-
-/* =========================================
-   HERO TITLE
-========================================= */
 
 .hero-title {
   display: flex;
@@ -693,10 +621,6 @@ a {
   color: var(--color-gold);
 }
 
-/* =========================================
-   HERO DESCRIPTION
-========================================= */
-
 .hero-description {
   max-width: 490px;
 
@@ -709,10 +633,6 @@ a {
 
   color: var(--color-muted);
 }
-
-/* =========================================
-   HERO SCROLL LINK
-========================================= */
 
 .hero-scroll {
   display: inline-flex;
@@ -751,10 +671,6 @@ a {
   width: 58px;
 }
 
-/* =========================================
-   HERO DECORATIONS
-========================================= */
-
 .hero-side-label {
   position: absolute;
 
@@ -792,10 +708,6 @@ a {
   );
 }
 
-/* =========================================
-   PLACEHOLDER SECTIONS
-========================================= */
-
 .placeholder-section {
   display: flex;
   align-items: center;
@@ -832,10 +744,6 @@ a {
   color: var(--color-ivory);
 }
 
-/* =========================================
-   TABLET
-========================================= */
-
 @media (max-width: 1023px) {
   :root {
     --navbar-height: 82px;
@@ -854,10 +762,6 @@ a {
     display: none;
   }
 }
-
-/* =========================================
-   MOBILE
-========================================= */
 
 @media (max-width: 767px) {
   :root {
@@ -917,10 +821,6 @@ a {
   }
 }
 
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
 @media (max-width: 380px) {
   .hero-container {
     padding-inline: 16px;
@@ -943,10 +843,6 @@ a {
   }
 }
 
-/* =========================================
-   SHORT VIEWPORTS
-========================================= */
-
 @media (max-height: 650px) {
   .hero-title {
     font-size: clamp(42px, 8vh, 100px);
@@ -964,10 +860,6 @@ a {
     margin-top: 20px;
   }
 }
-
-/* =========================================
-   REDUCED MOTION
-========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -987,12 +879,6 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
-
-/* =========================================
-   HERO — GSAP ANIMATED BACKGROUND
-   Image opacity is animated independently
-   from the Hero text and navigation.
-========================================= */
 
 .hero-section {
   isolation: isolate;
@@ -1051,11 +937,6 @@ a {
   }
 }
 
-
-/* =========================================
-   HERO — MOBILE TYPOGRAPHY IMPROVEMENTS
-========================================= */
-
 @media (max-width: 767px) {
   .hero-container {
     padding: 24px 20px 32px;
@@ -1088,10 +969,6 @@ a {
   }
 }
 
-/* =========================================
-   HERO — SMALL MOBILE
-========================================= */
-
 @media (max-width: 380px) {
   .hero-container {
     padding-inline: 16px;
@@ -1116,10 +993,6 @@ a {
   }
 }
 
-/* =========================================
-   HERO — SHORT MOBILE SCREENS
-========================================= */
-
 @media (max-width: 767px) and (max-height: 700px) {
   .hero-title {
     font-size: clamp(44px, 10.5vw, 62px);
@@ -1137,11 +1010,6 @@ a {
     margin-top: 20px;
   }
 }
-
-
-/* =========================================
-   ABOUT SECTION
-========================================= */
 
 .about-section {
   position: relative;
@@ -1163,8 +1031,6 @@ a {
   margin: 0 auto;
   padding: 0 clamp(20px, 5vw, 80px);
 }
-
-/* IMAGE */
 
 .about-visual {
   min-width: 0;
@@ -1211,8 +1077,6 @@ a {
   font-weight: 600;
   letter-spacing: 0.14em;
 }
-
-/* CONTENT */
 
 .about-content {
   min-width: 0;
@@ -1323,8 +1187,6 @@ a {
   transform: translate(4px, -4px);
 }
 
-/* TABLET */
-
 @media (max-width: 1023px) {
   .about-container {
     grid-template-columns: 1fr;
@@ -1340,8 +1202,6 @@ a {
     font-size: clamp(70px, 10vw, 110px);
   }
 }
-
-/* MOBILE */
 
 @media (max-width: 767px) {
   .about-section {
@@ -1406,11 +1266,6 @@ a {
   }
 }
 
-
-/* =========================================
-   ABOUT SECTION — VIEWPORT FIT
-========================================= */
-
 .about-section {
   min-height: calc(100svh - var(--header-height));
   padding: clamp(35px, 5vh, 65px) 0;
@@ -1426,14 +1281,10 @@ a {
   gap: clamp(35px, 5vw, 90px);
 }
 
-/* IMAGE */
-
 .about-image-wrap {
   aspect-ratio: 4 / 4.2;
   max-height: min(65svh, 650px);
 }
-
-/* TEXT */
 
 .about-eyebrow {
   margin-bottom: clamp(12px, 2vh, 22px);
@@ -1463,8 +1314,6 @@ a {
   margin-top: clamp(20px, 3vh, 32px);
 }
 
-/* TABLET */
-
 @media (max-width: 1023px) {
   .about-section {
     padding: 55px 0;
@@ -1485,8 +1334,6 @@ a {
     font-size: clamp(48px, 6.5vw, 78px);
   }
 }
-
-/* MOBILE */
 
 @media (max-width: 767px) {
   .about-section {
@@ -1541,8 +1388,6 @@ a {
   }
 }
 
-/* SHORT MOBILE SCREENS */
-
 @media (max-width: 767px) and (max-height: 700px) {
   .about-section {
     padding-block: 20px;
@@ -1561,11 +1406,6 @@ a {
     line-height: 1.45;
   }
 }
-
-
-/* =========================================
-   ABOUT — DESKTOP EXACT VIEWPORT FIT
-========================================= */
 
 @media (min-width: 1024px) {
   .about-section {
@@ -1590,8 +1430,6 @@ a {
     gap: clamp(32px, 5vw, 90px);
   }
 
-  /* IMAGE */
-
   .about-visual {
     display: flex;
     flex-direction: column;
@@ -1612,8 +1450,6 @@ a {
     flex-shrink: 0;
     margin-top: 12px;
   }
-
-  /* CONTENT */
 
   .about-content {
     min-height: 0;
@@ -1650,8 +1486,6 @@ a {
   }
 }
 
-/* SHORT DESKTOP SCREENS */
-
 @media (min-width: 1024px) and (max-height: 750px) {
   .about-section {
     padding-block: 15px;
@@ -1684,11 +1518,6 @@ a {
   }
 }
 
-
-/* =========================================
-   CONTACT SECTION — RESPONSIVE VIEWPORT
-========================================= */
-
 .contact-section {
   position: relative;
   display: flex;
@@ -1718,8 +1547,6 @@ a {
   min-width: 0;
 }
 
-/* EYEBROW */
-
 .contact-eyebrow {
   display: flex;
   align-items: center;
@@ -1741,8 +1568,6 @@ a {
   flex-shrink: 0;
   background: var(--color-gold);
 }
-
-/* TITLE */
 
 .contact-title {
   display: flex;
@@ -1766,8 +1591,6 @@ a {
   color: var(--color-gold);
 }
 
-/* DESCRIPTION */
-
 .contact-description {
   max-width: 450px;
   margin: 20px 0 0;
@@ -1777,8 +1600,6 @@ a {
   font-size: 14px;
   line-height: 1.65;
 }
-
-/* ACTION BUTTONS */
 
 .contact-actions {
   display: flex;
@@ -1837,8 +1658,6 @@ a {
   color: var(--color-gold-light);
 }
 
-/* CONTACT DETAILS */
-
 .contact-details {
   display: grid;
   gap: 15px;
@@ -1893,8 +1712,6 @@ a {
   color: var(--color-gold);
 }
 
-/* MAP HEADER */
-
 .contact-map-heading {
   display: flex;
   align-items: center;
@@ -1917,8 +1734,6 @@ a {
   color: var(--color-gold);
 }
 
-/* MAP */
-
 .contact-map-frame {
   position: relative;
   width: 100%;
@@ -1936,8 +1751,6 @@ a {
   height: 100%;
   border: 0;
 }
-
-/* DIRECTIONS */
 
 .contact-directions {
   display: flex;
@@ -1974,10 +1787,6 @@ a {
   color: #171717;
 }
 
-/* =========================================
-   DESKTOP — NAVBAR + CONTACT = 1 SCREEN
-========================================= */
-
 @media (min-width: 1024px) {
   .contact-section {
     height: calc(100svh - var(--compact-header-height));
@@ -2012,10 +1821,6 @@ a {
     min-height: 0;
   }
 }
-
-/* =========================================
-   SHORT DESKTOP SCREENS
-========================================= */
 
 @media (min-width: 1024px) and (max-height: 800px) {
   .contact-section {
@@ -2069,8 +1874,6 @@ a {
   }
 }
 
-/* VERY SHORT DESKTOP */
-
 @media (min-width: 1024px) and (max-height: 620px) {
   .contact-title {
     font-size: clamp(43px, 4.2vw, 63px);
@@ -2095,10 +1898,6 @@ a {
   }
 }
 
-/* =========================================
-   TABLET
-========================================= */
-
 @media (min-width: 768px) and (max-width: 1023px) {
   .contact-section {
     padding: 75px 0;
@@ -2118,10 +1917,6 @@ a {
     height: 420px;
   }
 }
-
-/* =========================================
-   MOBILE
-========================================= */
 
 @media (max-width: 767px) {
   .contact-section {
@@ -2180,10 +1975,6 @@ a {
   }
 }
 
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
 @media (max-width: 380px) {
   .contact-container {
     padding-inline: 16px;
@@ -2202,10 +1993,6 @@ a {
   }
 }
 
-/* =========================================
-   REDUCED MOTION
-========================================= */
-
 @media (prefers-reduced-motion: reduce) {
   .contact-action,
   .contact-directions {
@@ -2213,10 +2000,6 @@ a {
   }
 }
 
-/* =========================================
-   CONTACT — VERY SHORT DESKTOP SAFETY
-   Content remains accessible if the viewport is too short.
-========================================= */
 @media (min-width: 1024px) and (max-height: 540px) {
   .contact-section {
     height: auto;
@@ -2227,12 +2010,6 @@ a {
   .contact-info { max-height: none; }
   .contact-map-side { height: 310px; }
 }
-
-
-/* =========================================
-   ÜLKER TABELA REKLAM
-   FOOTER
-========================================= */
 
 .site-footer {
   position: relative;
@@ -2254,10 +2031,6 @@ a {
   padding: 0 clamp(20px, 5vw, 80px);
 }
 
-/* =========================================
-   FOOTER TOP
-========================================= */
-
 .footer-top {
   display: grid;
   grid-template-columns:
@@ -2276,10 +2049,6 @@ a {
 .footer-contact {
   min-width: 0;
 }
-
-/* =========================================
-   BRAND / LOGO
-========================================= */
 
 .footer-logo {
   position: relative;
@@ -2340,10 +2109,6 @@ a {
   background: var(--color-gold);
 }
 
-/* =========================================
-   COLUMN HEADINGS
-========================================= */
-
 .footer-column-title {
   margin: 10px 0 27px;
 
@@ -2354,10 +2119,6 @@ a {
   line-height: 1.5;
   letter-spacing: 0.2em;
 }
-
-/* =========================================
-   FOOTER NAVIGATION
-========================================= */
 
 .footer-navigation nav {
   display: flex;
@@ -2404,10 +2165,6 @@ a {
   transform: translate(0, 0);
 }
 
-/* =========================================
-   CONTACT DETAILS
-========================================= */
-
 .footer-contact-items {
   display: flex;
   flex-direction: column;
@@ -2451,10 +2208,6 @@ a {
   overflow-wrap: anywhere;
 }
 
-/* =========================================
-   FOOTER BOTTOM
-========================================= */
-
 .footer-bottom {
   display: flex;
   align-items: center;
@@ -2484,10 +2237,6 @@ a {
 
   white-space: nowrap;
 }
-
-/* =========================================
-   BACK TO TOP
-========================================= */
 
 .footer-back-top {
   display: inline-flex;
@@ -2524,10 +2273,6 @@ a {
   transform: rotate(-45deg) translate(3px, -3px);
 }
 
-/* =========================================
-   TABLET
-========================================= */
-
 @media (min-width: 768px) and (max-width: 1023px) {
   .footer-top {
     grid-template-columns:
@@ -2553,10 +2298,6 @@ a {
     padding: 24px 0;
   }
 }
-
-/* =========================================
-   MOBILE
-========================================= */
 
 @media (max-width: 767px) {
   .footer-container {
@@ -2634,10 +2375,6 @@ a {
   }
 }
 
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
 @media (max-width: 380px) {
   .footer-container {
     padding-inline: 16px;
@@ -2653,10 +2390,6 @@ a {
   }
 }
 
-/* =========================================
-   REDUCED MOTION
-========================================= */
-
 @media (prefers-reduced-motion: reduce) {
   .footer-nav-link,
   .footer-nav-link svg,
@@ -2666,11 +2399,6 @@ a {
     transition: none;
   }
 }
-
-
-/* =========================================
-   ABOUT — RIGHT TOP TO LEFT BOTTOM LIGHT
-========================================= */
 
 .about-section {
   position: relative;
@@ -2687,7 +2415,6 @@ a {
   mix-blend-mode: screen;
 }
 
-/* Sağ üstten sol alta uzanan ana ışık */
 .about-flashlight-beam {
   position: absolute;
   inset: 0;
@@ -2719,7 +2446,6 @@ a {
   will-change: transform, opacity;
 }
 
-/* Çapraz ışığın orta bölümündeki yumuşak parlama */
 .about-flashlight-glow {
   position: absolute;
   inset: 0;
@@ -2734,7 +2460,6 @@ a {
   opacity: 1;
 }
 
-/* Sol alt köşede ışığın dağıldığı alan */
 .about-flashlight::after {
   content: "";
   position: absolute;
@@ -2755,19 +2480,13 @@ a {
   filter: blur(35px);
 }
 
-/* İçerik ışığın üzerinde kalır */
 .about-section > :not(.about-flashlight) {
   position: relative;
   z-index: 2;
 }
 
-/* =========================================
-   MOBILE
-========================================= */
-
 @media (max-width: 767px) {
   .about-flashlight-beam {
-/* Yaklaşık 2 kat genişletilmiş ışık huzmesi */
 clip-path: polygon(
   100% 0%,
   92% 0%,
@@ -2800,9 +2519,6 @@ clip-path: polygon(
   }
 }
 
-
-/* ABOUT — LONG CONTENT SUPPORT */
-
 .about-section {
   height: auto !important;
   min-height: calc(100svh - var(--header-height));
@@ -2827,11 +2543,6 @@ clip-path: polygon(
     padding-bottom: 40px;
   }
 }
-
-
-/* ==========================================
-   ABOUT SECTION — EXPANDED RESPONSIVE LAYOUT
-========================================== */
 
 .about-section.about-section-expanded {
   position: relative;
@@ -2860,8 +2571,6 @@ clip-path: polygon(
 
   gap: clamp(40px, 6vw, 100px);
 }
-
-/* LEFT IMAGE */
 
 .about-visual.about-visual-expanded {
   position: relative;
@@ -2896,8 +2605,6 @@ clip-path: polygon(
   justify-content: space-between;
   gap: 12px;
 }
-
-/* RIGHT CONTENT */
 
 .about-content.about-content-expanded {
   display: flex;
@@ -3006,8 +2713,6 @@ clip-path: polygon(
   margin-top: 36px;
 }
 
-/* TABLET */
-
 @media (max-width: 1023px) {
   .about-container.about-container-expanded {
     grid-template-columns: minmax(0, 1fr);
@@ -3031,8 +2736,6 @@ clip-path: polygon(
     padding: 0 !important;
   }
 }
-
-/* MOBILE */
 
 @media (max-width: 767px) {
   .about-container.about-container-expanded {
@@ -3073,11 +2776,6 @@ clip-path: polygon(
   }
 }
 
-
-/* ============================================
-   ABOUT — PREMIUM FULL HEIGHT IMAGE & TYPOGRAPHY
-============================================ */
-
 .about-section.about-section-premium {
   position: relative;
   isolation: isolate;
@@ -3086,8 +2784,6 @@ clip-path: polygon(
   max-height: none !important;
   overflow: clip !important;
 }
-
-/* TWO COLUMN LAYOUT */
 
 .about-section-premium
 .about-container.about-container-expanded {
@@ -3107,8 +2803,6 @@ clip-path: polygon(
   margin-inline: auto;
   padding: 110px 0 120px !important;
 }
-
-/* LEFT IMAGE — SAME HEIGHT AS TEXT COLUMN */
 
 .about-section-premium
 .about-visual.about-visual-expanded {
@@ -3181,8 +2875,6 @@ clip-path: polygon(
   padding-top: 17px;
 }
 
-/* RIGHT CONTENT */
-
 .about-section-premium
 .about-content.about-content-expanded {
   display: flex !important;
@@ -3200,16 +2892,12 @@ clip-path: polygon(
   overflow: visible !important;
 }
 
-/* MAIN HEADING */
-
 .about-section-premium .about-title {
   font-size: clamp(48px, 5.1vw, 82px);
   line-height: 0.98;
   letter-spacing: 0.015em;
   overflow-wrap: normal;
 }
-
-/* INTRO PARAGRAPHS */
 
 .about-section-premium .about-introduction {
   display: flex;
@@ -3235,8 +2923,6 @@ clip-path: polygon(
   margin: 0;
 }
 
-/* SECTION HEADINGS */
-
 .about-section-premium .about-detail-group {
   width: 100%;
   margin-top: 58px;
@@ -3253,8 +2939,6 @@ clip-path: polygon(
   line-height: 1.05;
   letter-spacing: 0.035em;
 }
-
-/* SERVICE AND VALUE PARAGRAPHS */
 
 .about-section-premium .about-detail-list {
   display: flex;
@@ -3299,8 +2983,6 @@ clip-path: polygon(
   font-weight: 700;
 }
 
-/* CLOSING */
-
 .about-section-premium .about-closing {
   display: flex;
   flex-direction: column;
@@ -3325,8 +3007,6 @@ clip-path: polygon(
   align-self: flex-start;
   margin-top: 48px;
 }
-
-/* TABLET & MOBILE */
 
 @media (max-width: 1023px) {
   .about-section-premium
@@ -3417,12 +3097,6 @@ clip-path: polygon(
   }
 }
 
-
-/* ==========================================
-   ABOUT — FULL HEIGHT IMAGE FIX
-   Only affects the left image column
-========================================== */
-
 @media (min-width: 1024px) {
   .about-section-premium
   .about-container.about-container-expanded {
@@ -3491,8 +3165,6 @@ clip-path: polygon(
   }
 }
 
-/* Tablet and mobile: image stays above text */
-
 @media (max-width: 1023px) {
   .about-section-premium
   .about-visual.about-visual-expanded {
@@ -3526,11 +3198,6 @@ clip-path: polygon(
     height: 320px !important;
   }
 }
-
-
-/* ======================================
-   ABOUT FLASHLIGHT — DIAGONAL ANIMATION
-====================================== */
 
 .about-section {
   position: relative;
@@ -3584,19 +3251,10 @@ clip-path: polygon(
   }
 }
 
-
-/* ==========================================
-   ULKER TABELA — SERVICES DARK PREMIUM
-========================================== */
-
-/* SECTION BACKGROUND */
-
 .ulker-services-section {
   background: #171717 !important;
   color: #f4f0e8 !important;
 }
-
-/* MAIN HEADING */
 
 .ulker-services-main-title {
   color: #f4f0e8 !important;
@@ -3614,13 +3272,9 @@ clip-path: polygon(
   background: #d5a02c !important;
 }
 
-/* INTRO TEXT */
-
 .ulker-services-intro-text {
   color: #bdb7ad !important;
 }
-
-/* SERVICE HEADINGS */
 
 .ulker-service-title {
   color: #f4f0e8 !important;
@@ -3633,8 +3287,6 @@ clip-path: polygon(
 .ulker-service-description {
   color: #bdb7ad !important;
 }
-
-/* IMAGE FRAMES */
 
 .ulker-service-image-wrap {
   border: 1px solid rgba(244, 240, 232, 0.65);
@@ -3653,8 +3305,6 @@ clip-path: polygon(
     0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* ARROW BUTTONS */
-
 .ulker-service-arrow {
   border-color: rgba(244, 240, 232, 0.45);
   background: transparent;
@@ -3671,14 +3321,10 @@ clip-path: polygon(
   opacity: 0.3;
 }
 
-/* EMPTY IMAGE MESSAGE */
-
 .ulker-service-empty {
   border-color: rgba(244, 240, 232, 0.25);
   color: #bdb7ad;
 }
-
-/* SERVICE SEPARATORS */
 
 .ulker-service-block {
   position: relative;
@@ -3719,5 +3365,154 @@ clip-path: polygon(
 @media (prefers-reduced-motion: reduce) {
   .ulker-service-image-wrap {
     transition: none;
+  }
+}
+
+/* Reference logos: first-paint layout before component styles hydrate. */
+.ulker-references-section {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  overflow: clip;
+  background: #171717;
+}
+
+.ulker-references-slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.ulker-references-track,
+.ulker-references-set {
+  display: flex;
+  align-items: center;
+}
+
+.ulker-references-slider.is-static .ulker-references-track,
+.ulker-references-slider.is-static .ulker-references-set {
+  width: 100%;
+  justify-content: center;
+}
+
+.ulker-references-slider.is-static .ulker-references-set {
+  flex-wrap: wrap;
+}
+
+.ulker-reference-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 290px;
+  width: 290px;
+  min-height: 112px;
+}
+
+.ulker-reference-logo {
+  position: relative;
+  display: block;
+  width: 130px;
+  height: 65px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ulker-references-list-logo {
+  position: relative;
+  flex: 0 0 45px;
+  width: 45px;
+  height: 38px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+@media (max-width: 1023px) {
+  .ulker-reference-item { flex-basis: 245px; width: 245px; }
+}
+
+@media (max-width: 767px) {
+  .ulker-reference-item { flex-basis: 200px; width: 200px; }
+  .ulker-reference-logo { width: 90px; height: 55px; }
+}
+
+/* =========================================
+   HİZMETLERİMİZ — DROPDOWN FIX
+========================================= */
+
+@media (min-width: 1024px) {
+  .ulker-services-nav-group {
+    position: relative;
+  }
+
+  .ulker-services-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 100;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translate(-50%, -7px);
+
+    transition:
+      opacity 0.22s ease,
+      visibility 0.22s ease,
+      transform 0.22s ease;
+  }
+
+  .ulker-services-nav-group:hover .ulker-services-dropdown,
+  .ulker-services-nav-group:focus-within .ulker-services-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+  }
+
+  .ulker-services-dropdown:hover {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+/* =========================================
+   WHATSAPP & PHONE — FIRST LOAD FIX
+========================================= */
+
+.ulker-contact-group {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 9px;
+  flex-shrink: 0;
+}
+
+.ulker-contact-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.ulker-contact-button svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.ulker-contact-label {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@media (max-width: 1023px) {
+  .ulker-contact-group-mobile {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap;
   }
 }

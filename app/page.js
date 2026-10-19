@@ -8,13 +8,32 @@ import ContactSection from "@/components/home/ContactSection";
 import AnimatedHeroTitle from "@/components/hero/AnimatedHeroTitle";
 import ReferencesSection from "@/components/home/ReferencesSection";
 import ServicesSection from "@/components/home/ServicesSection";
-export default function Home() {
+
+// PostgreSQL veri sorguları
+import { getPublicServices } from "@/lib/public-services";
+import { getPublicReferences } from "@/lib/public-references";
+
+// Admin panelinde yapılan değişikliklerin
+// ana sayfada güncel olarak görüntülenmesini sağlar.
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  // PostgreSQL üzerinden aktif hizmetleri
+  // ve referansları eş zamanlı getir.
+  const [services, references] = await Promise.all([
+    getPublicServices(),
+    getPublicReferences(),
+  ]);
+
   return (
     <>
       {/* =====================================
           NAVBAR
+
+          PostgreSQL üzerinden gelen hizmetler
+          masaüstü ve mobil menüde kullanılır.
       ===================================== */}
-      <Navbar />
+      <Navbar services={services} />
 
       {/* =====================================
           MAIN CONTENT
@@ -76,16 +95,24 @@ export default function Home() {
         <AboutSection />
 
         {/* =====================================
-            ÇALIŞMALARIMIZ SECTION
-            ŞİMDİLİK PLACEHOLDER
+            HİZMETLERİMİZ SECTION
+
+            PostgreSQL + Prisma + Cloudinary
+
+            Admin panelinden yönetilen
+            aktif hizmetler ve görseller
         ===================================== */}
-        <ServicesSection />
+        <ServicesSection services={services} />
 
         {/* =====================================
             REFERANSLARIMIZ SECTION
-            ŞİMDİLİK PLACEHOLDER
+
+            PostgreSQL + Prisma
+
+            Admin panelinden yönetilecek
+            referanslar ve firma logoları
         ===================================== */}
-        <ReferencesSection />
+        <ReferencesSection references={references} />
 
         {/* =====================================
             İLETİŞİM SECTION
