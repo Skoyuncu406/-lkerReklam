@@ -93,16 +93,18 @@ export default function EditServiceForm({ service }) {
               className="block text-xs font-semibold tracking-wide text-[#D5A02C]"
             >
               HİZMET AÇIKLAMASI
+              <span className="ml-2 text-[11px] font-normal tracking-normal text-[#AFA9A0]">
+                (İsteğe bağlı)
+              </span>
             </label>
 
             <textarea
               id="description"
               name="description"
-              required
-              minLength={10}
               maxLength={5000}
               rows={7}
-              defaultValue={service.description}
+              defaultValue={service.description ?? ""}
+              placeholder="Hizmet açıklaması ekleyebilirsiniz..."
               className={`${inputClass} resize-y leading-7`}
             />
           </div>

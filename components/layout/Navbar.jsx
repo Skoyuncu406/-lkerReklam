@@ -578,7 +578,7 @@ export default function Navbar({ services = [] }) {
           }
           className="ulker-services-dropdown-link"
         >
-          <span>{service.title}</span>
+          <span>{service.title?.toLocaleUpperCase("tr-TR")}</span>
 
           <ArrowUpRight
             size={15}
@@ -733,7 +733,7 @@ export default function Navbar({ services = [] }) {
                               tabIndex={isMenuOpen ? 0 : -1}
                               className="ulker-mobile-service-link"
                             >
-                              {service.title}
+                              {service.title?.toLocaleUpperCase("tr-TR")}
                               <ArrowUpRight size={16} strokeWidth={1.5} aria-hidden="true" />
                             </Link>
                           ))}

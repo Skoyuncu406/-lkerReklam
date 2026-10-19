@@ -68,21 +68,19 @@ export default async function AdminServicesPage() {
               </p>
             </div>
 
- 
-<div className="flex flex-wrap items-center gap-3">
-  <div className="flex items-center gap-2 border border-[#D5A02C]/40 px-4 py-3 text-xs text-[#D5A02C]">
-    <BriefcaseBusiness size={16} />
-    {services.length} HİZMET
-  </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-2 border border-[#D5A02C]/40 px-4 py-3 text-xs text-[#D5A02C]">
+                <BriefcaseBusiness size={16} />
+                {services.length} HİZMET
+              </div>
 
-  <Link
-    href="/admin/hizmetler/yeni"
-    className="inline-flex items-center justify-center bg-[#D5A02C] px-5 py-3 text-xs font-semibold tracking-widest text-[#171717] transition-opacity hover:opacity-90"
-  >
-    + YENİ HİZMET EKLE
-  </Link>
-</div>
-
+              <Link
+                href="/admin/hizmetler/yeni"
+                className="inline-flex items-center justify-center bg-[#D5A02C] px-5 py-3 text-xs font-semibold tracking-widest text-[#171717] transition-opacity hover:opacity-90"
+              >
+                + YENİ HİZMET EKLE
+              </Link>
+            </div>
           </div>
         </header>
 
@@ -100,8 +98,9 @@ export default async function AdminServicesPage() {
               </h2>
 
               <p className="mt-3 text-sm text-[#AFA9A0]">
-                Yeni hizmet ekleme özelliğini bir sonraki adımda
-                hazırlayacağız.
+                İlk hizmetinizi oluşturmak için
+                &quot;Yeni Hizmet Ekle&quot; butonunu
+                kullanabilirsiniz.
               </p>
             </div>
           ) : (
@@ -111,6 +110,10 @@ export default async function AdminServicesPage() {
                   (image) => Boolean(image.src)
                 ).length;
 
+                const hasDescription =
+                  typeof service.description === "string" &&
+                  service.description.trim().length > 0;
+
                 return (
                   <article
                     key={service.id}
@@ -118,6 +121,7 @@ export default async function AdminServicesPage() {
                   >
                     <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                       <div className="min-w-0 flex-1">
+                        {/* SIRA VE YAYIN DURUMU */}
                         <div className="mb-3 flex flex-wrap items-center gap-3">
                           <span className="text-xs font-semibold tracking-widest text-[#D5A02C]">
                             {String(service.order).padStart(2, "0")}
@@ -136,17 +140,25 @@ export default async function AdminServicesPage() {
                           )}
                         </div>
 
+                        {/* HİZMET BAŞLIĞI */}
                         <h2 className="font-[family-name:var(--font-bebas)] text-2xl tracking-wide sm:text-3xl">
                           {service.title}
                         </h2>
 
-                        <p className="mt-2 max-w-2xl text-sm leading-7 text-[#AFA9A0]">
-                          {service.description}
-                        </p>
+                        {/* AÇIKLAMA VARSA GÖSTER */}
+                        {hasDescription && (
+                          <p className="mt-2 max-w-2xl text-sm leading-7 text-[#AFA9A0]">
+                            {service.description}
+                          </p>
+                        )}
 
+                        {/* GÖRSEL BİLGİLERİ */}
                         <div className="mt-5 flex flex-wrap items-center gap-4 text-xs text-[#AFA9A0]">
                           <span className="inline-flex items-center gap-2">
-                            <ImageIcon size={15} className="text-[#D5A02C]" />
+                            <ImageIcon
+                              size={15}
+                              className="text-[#D5A02C]"
+                            />
                             {service.images.length} görsel alanı
                           </span>
 
@@ -156,20 +168,20 @@ export default async function AdminServicesPage() {
                         </div>
                       </div>
 
+                      {/* İŞLEM BUTONLARI */}
                       <div className="flex shrink-0 items-center gap-3">
-    
-<Link
-  href={`/admin/hizmetler/${service.id}/duzenle`}
-  className="inline-flex items-center gap-2 border border-[#D5A02C]/50 px-5 py-3 text-xs font-semibold tracking-wide text-[#D5A02C] transition-colors hover:bg-[#D5A02C] hover:text-[#171717]"
->
-  <Pencil size={15} />
-  DÜZENLE
-</Link>
-  <DeleteServiceButton
-    serviceId={service.id}
-    serviceTitle={service.title}
-  />
+                        <Link
+                          href={`/admin/hizmetler/${service.id}/duzenle`}
+                          className="inline-flex items-center gap-2 border border-[#D5A02C]/50 px-5 py-3 text-xs font-semibold tracking-wide text-[#D5A02C] transition-colors hover:bg-[#D5A02C] hover:text-[#171717]"
+                        >
+                          <Pencil size={15} />
+                          DÜZENLE
+                        </Link>
 
+                        <DeleteServiceButton
+                          serviceId={service.id}
+                          serviceTitle={service.title}
+                        />
                       </div>
                     </div>
                   </article>
@@ -179,6 +191,7 @@ export default async function AdminServicesPage() {
           )}
         </section>
 
+        {/* ALT BİLGİ */}
         <footer className="mt-16 border-t border-white/10 pt-6 text-center text-[11px] tracking-wide text-[#77736E]">
           ÜLKER TABELA REKLAM · HİZMET YÖNETİMİ
         </footer>

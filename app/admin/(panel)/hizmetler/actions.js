@@ -4,8 +4,12 @@ import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/require-admin";
 import prisma from "@/lib/prisma";
 
+// HİZMET FORMU DOĞRULAMA
 function validateService(formData) {
   const title = String(formData.get("title") ?? "").trim();
+
+  // Açıklama isteğe bağlıdır.
+  // Boş bırakılırsa veritabanına boş string kaydedilir.
   const description = String(formData.get("description") ?? "").trim();
 
   const orderValue = String(formData.get("order") ?? "");
@@ -13,18 +17,21 @@ function validateService(formData) {
 
   const active = formData.get("active") === "on";
 
+  // HİZMET BAŞLIĞI
   if (title.length < 3 || title.length > 150) {
     return {
       error: "Hizmet başlığı 3–150 karakter olmalıdır.",
     };
   }
 
-  if (description.length < 10 || description.length > 5000) {
+  // HİZMET AÇIKLAMASI (İSTEĞE BAĞLI)
+  if (description.length > 5000) {
     return {
-      error: "Açıklama 10–5000 karakter olmalıdır.",
+      error: "Hizmet açıklaması en fazla 5000 karakter olabilir.",
     };
   }
 
+  // GÖRÜNTÜLEME SIRASI
   if (
     orderValue.trim() === "" ||
     !Number.isSafeInteger(order) ||
@@ -46,9 +53,11 @@ function validateService(formData) {
   };
 }
 
+// İLGİLİ SAYFALARIN ÖNBELLEĞİNİ YENİLE
 function refreshServices() {
   revalidatePath("/admin");
   revalidatePath("/admin/hizmetler");
+  revalidatePath("/");
 }
 
 // YENİ HİZMET OLUŞTUR
@@ -139,6 +148,7 @@ export async function updateService(serviceId, prevState, formData) {
   }
 }
 
+// HİZMET SİL
 export async function deleteService(serviceId) {
   await requireAdmin();
 

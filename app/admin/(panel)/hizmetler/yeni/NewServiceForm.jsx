@@ -91,18 +91,24 @@ export default function NewServiceForm() {
               className="block text-xs font-semibold tracking-wide text-[#D5A02C]"
             >
               HİZMET AÇIKLAMASI
+              <span className="ml-2 text-[11px] font-normal tracking-normal text-[#AFA9A0]">
+                (İsteğe bağlı)
+              </span>
             </label>
 
-            <textarea
-              id="description"
-              name="description"
-              required
-              minLength={10}
-              maxLength={5000}
-              rows={6}
-              placeholder="Hizmetiniz hakkında açıklama yazınız..."
-              className={`${inputClass} resize-y leading-7`}
-            />
+<textarea
+  id="description"
+  name="description"
+  required={false}
+  maxLength={5000}
+  rows={6}
+  placeholder="İsteğe bağlı hizmet açıklaması..."
+  className={`${inputClass} resize-y leading-7`}
+/>
+
+            <p className="mt-2 text-xs text-[#77736E]">
+              Açıklama eklemeden de hizmet oluşturabilirsiniz.
+            </p>
           </div>
 
           <div>

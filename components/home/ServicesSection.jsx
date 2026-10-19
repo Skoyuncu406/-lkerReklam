@@ -132,8 +132,8 @@ function ServiceGallery({ service }) {
           </span>
 
           <div>
-            <h3 className="ulker-service-title">
-              {service.title}
+            <h3 className="ulker-service-title" lang="tr">
+              {service.title?.toLocaleUpperCase("tr-TR")}
             </h3>
 
             {service.description && (
