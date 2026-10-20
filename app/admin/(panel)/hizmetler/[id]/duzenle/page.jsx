@@ -36,18 +36,20 @@ export default async function EditServicePage({ params }) {
   }
 
   return (
-    <main className="min-h-screen bg-[#171717] text-[#F4F0E8]">
-      <EditServiceForm
-        service={{
-          id: service.id,
-          title: service.title,
-          description: service.description,
-          order: service.order,
-          active: service.active,
-        }}
-      />
+    <main className="min-h-screen min-w-0 bg-[#171717] text-[#F4F0E8]">
+      <div className="min-w-0 w-full">
+        <EditServiceForm
+          service={{
+            id: service.id,
+            title: service.title,
+            description: service.description,
+            order: service.order,
+            active: service.active,
+          }}
+        />
+      </div>
 
-      <div className="mx-auto max-w-3xl px-5 pb-16 sm:px-8">
+      <section className="mx-auto min-w-0 w-full max-w-3xl px-4 pb-12 sm:px-6 sm:pb-16 lg:px-8">
         <ServiceImageManager
           serviceId={service.id}
           images={service.images.map((image) => ({
@@ -57,7 +59,7 @@ export default async function EditServicePage({ params }) {
             order: image.order,
           }))}
         />
-      </div>
+      </section>
     </main>
   );
 }

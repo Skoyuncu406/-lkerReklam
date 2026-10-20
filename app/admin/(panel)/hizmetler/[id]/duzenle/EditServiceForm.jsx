@@ -21,7 +21,6 @@ const initialState = {
 
 export default function EditServiceForm({ service }) {
   const router = useRouter();
-
   const [active, setActive] = useState(service.active);
 
   const updateAction = updateService.bind(null, service.id);
@@ -39,25 +38,25 @@ export default function EditServiceForm({ service }) {
   }, [state.success, router]);
 
   const inputClass =
-    "w-full border-0 border-b border-white/20 bg-transparent px-0 py-3 text-sm text-[#F4F0E8] outline-none transition-colors placeholder:text-[#77736E] focus:border-[#D5A02C] focus:outline-none focus:ring-0";
+    "block w-full min-w-0 max-w-full border-0 border-b border-white/20 bg-transparent px-0 py-3 text-base text-[#F4F0E8] outline-none transition-colors placeholder:text-[#77736E] focus:border-[#D5A02C] focus:outline-none focus:ring-0 sm:text-sm";
 
   return (
-    <main className="min-h-screen bg-[#171717] text-[#F4F0E8]">
-      <div className="mx-auto max-w-3xl px-5 py-10 sm:px-8">
+    <section className="min-w-0 w-full bg-[#171717] text-[#F4F0E8]">
+      <div className="mx-auto w-full min-w-0 max-w-3xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <Link
           href="/admin/hizmetler"
-          className="mb-10 inline-flex items-center gap-2 text-xs text-[#AFA9A0] transition-colors hover:text-[#D5A02C]"
+          className="mb-8 inline-flex max-w-full items-center gap-2 text-xs text-[#AFA9A0] transition-colors hover:text-[#D5A02C] sm:mb-10"
         >
-          <ArrowLeft size={16} />
-          Hizmetler Yönetimine Dön
+          <ArrowLeft size={16} className="shrink-0" />
+          <span>Hizmetler Yönetimine Dön</span>
         </Link>
 
-        <header className="border-b border-white/10 pb-8">
-          <p className="mb-3 text-[11px] font-semibold tracking-[0.2em] text-[#D5A02C]">
+        <header className="min-w-0 border-b border-white/10 pb-6 sm:pb-8">
+          <p className="mb-3 text-[11px] font-semibold tracking-[0.15em] text-[#D5A02C] sm:tracking-[0.2em]">
             ÜLKER TABELA REKLAM
           </p>
 
-          <h1 className="font-[family-name:var(--font-bebas)] text-5xl tracking-wide sm:text-6xl">
+          <h1 className="break-words font-[family-name:var(--font-bebas)] text-4xl tracking-wide sm:text-6xl">
             HİZMET DÜZENLE
           </h1>
 
@@ -66,8 +65,8 @@ export default function EditServiceForm({ service }) {
           </p>
         </header>
 
-        <form action={formAction} className="mt-10 space-y-9">
-          <div>
+        <form action={formAction} className="mt-8 min-w-0 space-y-8 sm:mt-10 sm:space-y-9">
+          <div className="min-w-0">
             <label
               htmlFor="title"
               className="block text-xs font-semibold tracking-wide text-[#D5A02C]"
@@ -87,7 +86,7 @@ export default function EditServiceForm({ service }) {
             />
           </div>
 
-          <div>
+          <div className="min-w-0">
             <label
               htmlFor="description"
               className="block text-xs font-semibold tracking-wide text-[#D5A02C]"
@@ -109,7 +108,7 @@ export default function EditServiceForm({ service }) {
             />
           </div>
 
-          <div>
+          <div className="min-w-0">
             <label
               htmlFor="order"
               className="block text-xs font-semibold tracking-wide text-[#D5A02C]"
@@ -129,31 +128,27 @@ export default function EditServiceForm({ service }) {
               className={inputClass}
             />
 
-            <p className="mt-2 text-xs text-[#77736E]">
+            <p className="mt-2 text-xs leading-5 text-[#77736E]">
               Küçük sayılar listede önce görüntülenir.
             </p>
           </div>
 
-          <div className="flex items-center justify-between gap-4 border-y border-white/10 py-6">
-            <div>
-              <p className="text-sm font-semibold">
-                YAYIN DURUMU
-              </p>
+          <div className="flex min-w-0 flex-col gap-4 border-y border-white/10 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:py-6">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold">YAYIN DURUMU</p>
 
-              <p className="mt-1 text-xs text-[#AFA9A0]">
+              <p className="mt-1 text-xs leading-5 text-[#AFA9A0]">
                 Hizmetin aktif veya pasif olmasını belirleyin.
               </p>
             </div>
 
-            <label className="flex cursor-pointer items-center gap-3">
+            <label className="flex w-fit shrink-0 cursor-pointer items-center gap-3">
               <input
                 type="checkbox"
                 name="active"
                 checked={active}
-                onChange={(event) =>
-                  setActive(event.target.checked)
-                }
-                className="h-4 w-4 accent-[#D5A02C]"
+                onChange={(event) => setActive(event.target.checked)}
+                className="h-4 w-4 shrink-0 accent-[#D5A02C]"
               />
 
               <span className="text-sm text-[#D5A02C]">
@@ -165,26 +160,26 @@ export default function EditServiceForm({ service }) {
           {state.message && (
             <div
               role="status"
-              className={`flex items-start gap-3 border p-4 text-sm ${
+              className={`flex min-w-0 items-start gap-3 border p-3 text-sm sm:p-4 ${
                 state.success
                   ? "border-emerald-500/30 text-emerald-400"
                   : "border-red-500/30 text-red-400"
               }`}
             >
               {state.success ? (
-                <CheckCircle2 size={18} />
+                <CheckCircle2 size={18} className="mt-0.5 shrink-0" />
               ) : (
-                <AlertCircle size={18} />
+                <AlertCircle size={18} className="mt-0.5 shrink-0" />
               )}
 
-              <p>{state.message}</p>
+              <p className="min-w-0 break-words">{state.message}</p>
             </div>
           )}
 
-          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          <div className="flex min-w-0 flex-col-reverse gap-3 sm:flex-row sm:justify-end">
             <Link
               href="/admin/hizmetler"
-              className="inline-flex items-center justify-center border border-white/20 px-8 py-3.5 text-xs font-semibold tracking-widest text-[#AFA9A0] transition-colors hover:border-white/50 hover:text-white"
+              className="inline-flex min-h-12 w-full min-w-0 items-center justify-center border border-white/20 px-4 py-3 text-center text-xs font-semibold tracking-widest text-[#AFA9A0] transition-colors hover:border-white/50 hover:text-white sm:w-auto sm:px-8"
             >
               VAZGEÇ
             </Link>
@@ -192,26 +187,23 @@ export default function EditServiceForm({ service }) {
             <button
               type="submit"
               disabled={pending || state.success}
-              className="inline-flex items-center justify-center gap-2 bg-[#D5A02C] px-8 py-3.5 text-xs font-semibold tracking-widest text-[#171717] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-12 w-full min-w-0 items-center justify-center gap-2 bg-[#D5A02C] px-4 py-3 text-center text-xs font-semibold tracking-wider text-[#171717] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:px-8 sm:tracking-widest"
             >
               {pending ? (
                 <>
-                  <LoaderCircle
-                    size={16}
-                    className="animate-spin"
-                  />
-                  GÜNCELLENİYOR
+                  <LoaderCircle size={16} className="shrink-0 animate-spin" />
+                  <span>GÜNCELLENİYOR</span>
                 </>
               ) : (
                 <>
-                  <Save size={16} />
-                  DEĞİŞİKLİKLERİ KAYDET
+                  <Save size={16} className="shrink-0" />
+                  <span>DEĞİŞİKLİKLERİ KAYDET</span>
                 </>
               )}
             </button>
           </div>
         </form>
       </div>
-    </main>
+    </section>
   );
 }
