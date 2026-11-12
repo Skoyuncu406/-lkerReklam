@@ -22,6 +22,22 @@ const nextConfig = {
       },
     ],
   },
+
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "ulkertabelareklam.com.tr",
+          },
+        ],
+        destination: "https://www.ulkertabelareklam.com.tr/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,6 +1,9 @@
 import { Bebas_Neue, DM_Sans } from "next/font/google";
 import "./globals.css";
+
 import ConditionalFreeDiscoveryButton from "@/components/layout/ConditionalFreeDiscoveryButton";
+
+const SITE_URL = "https://www.ulkertabelareklam.com.tr";
 
 const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
@@ -16,7 +19,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL(SITE_URL),
 
   title: {
     default: "Ülker Tabela Reklam | İstanbul",
@@ -35,9 +38,34 @@ export const metadata = {
     "reklam uygulamaları",
   ],
 
+  alternates: {
+    canonical: "/",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: SITE_URL,
+    siteName: "Ülker Tabela Reklam",
+    title: "Ülker Tabela Reklam | İstanbul",
+    description:
+      "İstanbul Küçükçekmece'de profesyonel tabela, reklam, tasarım, üretim ve uygulama çözümleri.",
+  },
+
+  twitter: {
+    card: "summary",
+    title: "Ülker Tabela Reklam | İstanbul",
+    description:
+      "Profesyonel tabela, reklam, tasarım, üretim ve uygulama çözümleri.",
+  },
+
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 

@@ -399,7 +399,7 @@ export default function Navbar({ services = [] }) {
           behavior: reducedMotion ? "instant" : "smooth",
         });
 
-        window.history.replaceState(null, "", href);
+        // URL temiz kalır; yalnızca ilgili bölüme kaydırılır.
       });
     });
   };
